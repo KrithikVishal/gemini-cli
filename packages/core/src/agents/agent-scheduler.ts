@@ -61,7 +61,11 @@ export async function scheduleAgentTools(
   const agentConfig: Config = Object.create(config);
   agentConfig.getToolRegistry = () => toolRegistry;
   agentConfig.getMessageBus = () => toolRegistry.getMessageBus();
-  // Override toolRegistry property so AgentLoopContext reads the agent-specific registry.
+  // Override messageBus and toolRegistry properties so AgentLoopContext reads the agent-specific versions.
+  Object.defineProperty(agentConfig, 'messageBus', {
+    get: () => toolRegistry.getMessageBus(),
+    configurable: true,
+  });
   Object.defineProperty(agentConfig, 'toolRegistry', {
     get: () => toolRegistry,
     configurable: true,

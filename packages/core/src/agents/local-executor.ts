@@ -120,6 +120,11 @@ export class LocalAgentExecutor<TOutput extends z.ZodTypeAny> {
     onActivity?: ActivityCallback,
   ): Promise<LocalAgentExecutor<TOutput>> {
     const parentMessageBus = context.messageBus;
+    if (!parentMessageBus) {
+      throw new Error(
+        `Failed to create agent executor: messageBus is missing from context.`,
+      );
+    }
 
     // Create an override object to inject the subagent name into tool confirmation requests
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
