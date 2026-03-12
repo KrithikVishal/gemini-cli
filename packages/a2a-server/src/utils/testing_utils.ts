@@ -33,7 +33,7 @@ export function createMockConfig(
   const mockConfig = {
     get toolRegistry(): ToolRegistry {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-      return (this as unknown as Config).getToolRegistry();
+      return (this as unknown as Config).toolRegistry;
     },
     getToolRegistry: vi.fn().mockReturnValue({
       getTool: vi.fn(),
